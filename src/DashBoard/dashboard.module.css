@@ -1,24 +1,36 @@
+.baground{
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(to right, #6645d2, #690ea2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 .top{
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 5%;
-    margin-top: 20px;
 }
 .counter{
     box-shadow: 0px 0px 5px black;
+    background-color: #dbd7f2;
     width: 50%;
     height:40vh;
     border-radius:30px;
+    margin-top: 10px;
 }
 .rich{
-  
+    background-color: #dbd7f2;
     box-shadow: 0px 0px 5px black;
     width: 40%;
     border-radius:30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+    margin-top: 10px;
     /* background: linear-gradient(to right, #ffcc00, #76db09); */
 }
 .mainButtons{
@@ -26,12 +38,70 @@
     justify-content:space-around;
     margin-top: 5em;
 }
-.bottom{
-    border: 1px solid red;
-}
+
 .changeButtons{
     width: 100%;
     display: flex;
     justify-content:space-around;
     margin-top: 1.5em;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%; 
+}
+.bottomf{
+    box-shadow: 0px 0px 5px black;
+    background-color: #dbd7f2;
+    width: 50%;
+    height:40vh;
+    border-radius:30px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.bottoms{
+    background-color: #dbd7f2;
+    box-shadow: 0px 0px 5px black;
+    width: 40%;
+    border-radius:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-evenly;
+}
+.inputAddress{
+    border-radius: 5px;
+    border: 1px solid #dbd7f2;
+    width: 50%;
+    height: 5vh;
+    color: #000;
+    outline: none;
+}
+.inputAddress:hover{
+    border-color: #3c009d;
+  }
+.saveAddress{
+    outline: none;
+    border: none;
+    background-color: #3c009d;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 16px;
+    width: 60%;
+    transition: 100ms;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.bar{
+    height: 35px;
+    /* margin-top:4.5em; */
+    background-color:#ddcdf6;
+    border-radius: 5px;
 }
