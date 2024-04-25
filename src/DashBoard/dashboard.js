@@ -125,14 +125,10 @@ const Dashboard = () => {
 
   const [userName, setUserName] = useState("");
   useEffect(() => {
-    // Retrieve stored user data from localStorage
     const userDataString = localStorage.getItem("UserData");
 
     if (userDataString) {
-      // Parse the JSON string to an object
       const userData = JSON.parse(userDataString);
-
-      // Access the name property
       const { name } = userData;
       setUserName(name);
     }
