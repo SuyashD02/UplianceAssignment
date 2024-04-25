@@ -122,6 +122,22 @@ const Dashboard = () => {
     localStorage.clear();
     window.location.href = '/';
   };
+
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    // Retrieve stored user data from localStorage
+    const userDataString = localStorage.getItem("UserData");
+
+    if (userDataString) {
+      // Parse the JSON string to an object
+      const userData = JSON.parse(userDataString);
+
+      // Access the name property
+      const { name } = userData;
+      setUserName(name);
+    }
+  }, []);
+
   return (
     <div className={Classes.baground}>
       <div className={Classes.top}>
@@ -196,7 +212,7 @@ const Dashboard = () => {
 
       <div className={Classes.bottom}>
         <div className={Classes.bottomf}>
-          <div>Name: {name} ID: {uniqueId}</div>
+        {userName && <div>Name: {userName}</div>}
           <div className="flex justify-center gap-[15px] items-center w-[95%] mt-[20px] ">
             <p>Name:</p>
             <input
