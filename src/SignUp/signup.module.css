@@ -76,3 +76,9 @@
   .footer p span a:hover{
     color: #2A00B7;
   }
+  @media(max-width:600px){
+    
+    .innerBox{
+      min-width: 300px;
+    }
+  }

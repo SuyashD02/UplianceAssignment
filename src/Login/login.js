@@ -6,6 +6,7 @@ import InputSection from "../InputControl/inputSection";
 import { auth } from "../Firebase/FirebaseConfig";
 
 import styles from "./login.module.css";
+import InputEmail from "../InputControl/inputEmail";
 
 function Login() {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ function Login() {
           }
           placeholder="Enter email address"
         />
-        <InputSection
+        <InputEmail
           label="Password"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, pass: event.target.value }))

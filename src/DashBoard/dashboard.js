@@ -3,7 +3,10 @@ import { useSpring, animated } from "react-spring";
 import Classes from "./dashboard.module.css";
 
 const Dashboard = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(()=>{
+    const storedCount = localStorage.getItem("counter");
+    return storedCount ? parseInt(storedCount, 10) : 0;
+  });
   const { width } = useSpring({
     width: `${count * 10}%`,
   });
@@ -42,6 +45,9 @@ const Dashboard = () => {
     email: "",
     phone: "",
   });
+  useEffect(() => {
+    localStorage.setItem("counter", count);
+  }, [count]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,17 +56,48 @@ const Dashboard = () => {
       [name]: value,
     }));
   };
+  const [addressError, setAddressError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
   const handleSave = () => {
     const { address, email, phone } = formData;
-    setText(`Address: ${address}\nEmail: ${email}\nPhone: ${phone}`);
+    let isValid = true;
+    if (!address.trim()) {
+      setAddressError("Please provide an address.");
+      isValid = false;
+    } else {
+      setAddressError("");
+    }
+    if (!email.trim()) {
+      setEmailError("Please provide an email address.");
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Please provide a valid email address.");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+    if (!phone.trim()) {
+      setPhoneError("Please provide a phone number.");
+      isValid = false;
+    } else {
+      setPhoneError("");
+    }
 
-    setFormData({
-      address: "",
-      email: "",
-      phone: ""
-    });
+    if (isValid) {
+      setText(`Address: ${address}\nEmail: ${email}\nPhone: ${phone}`);
+      setFormData({
+        address: "",
+        email: "",
+        phone: ""
+      });
+    }
   };
-
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
   const [name, setName] = useState("");
   const [uniqueId, setUniqueId] = useState("");
   useEffect(() => {
@@ -80,6 +117,10 @@ const Dashboard = () => {
     setName("");
     const generatedId = generateUniqueId();
     setUniqueId(generatedId);
+  };
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/';
   };
   return (
     <div className={Classes.baground}>
@@ -133,7 +174,7 @@ const Dashboard = () => {
           <div className={Classes.changeButtons}>
             <button
               onClick={handleBoldClick}
-              className="w-[20%] h-[5vh] rounded-[10px] text-[20px] bg-[#3c009d] text-[#fff] outline-none"
+              className="w-[20%] h-[5vh] rounded-[10px] text-[20px] bg-[#3c009d] text-[#fff] outline-none "
             >
               Bold
             </button>
@@ -155,7 +196,8 @@ const Dashboard = () => {
 
       <div className={Classes.bottom}>
         <div className={Classes.bottomf}>
-          <div className="flex justify-center gap-[15px] items-center w-[95%] mt-[20px]">
+          <div>Name: {name} ID: {uniqueId}</div>
+          <div className="flex justify-center gap-[15px] items-center w-[95%] mt-[20px] ">
             <p>Name:</p>
             <input
               type="text"
@@ -186,6 +228,7 @@ const Dashboard = () => {
               className={Classes.inputAddress}
             />
           </div>
+          {addressError && <p className={Classes.errormessage}>{addressError}</p>}
           <div className="flex justify-center gap-[15px] items-center w-[95%] mt-[20px]">
             <p>Email:</p>
             <input
@@ -197,6 +240,7 @@ const Dashboard = () => {
               className={Classes.inputAddress}
             />
           </div>
+          {emailError && <p className={Classes.errormessage}>{emailError}</p>}
           <div className="flex justify-center gap-[15px] items-center w-[95%] mt-[20px]">
             <p>Phone:</p>
             <input
@@ -206,8 +250,10 @@ const Dashboard = () => {
               onChange={handleInputChange}
               placeholder="Phone"
               className={Classes.inputAddress}
+
             />
           </div>
+          {phoneError && <p className={Classes.errormessage}>{phoneError}</p>}
           <button className={Classes.saveAddress} onClick={handleSave}>
             Save
           </button>
@@ -222,6 +268,9 @@ const Dashboard = () => {
           }}
         />
       </div>
+      <button onClick={handleLogout} className={Classes.logoutButton}>
+        Logout
+      </button>
     </div>
   );
 };

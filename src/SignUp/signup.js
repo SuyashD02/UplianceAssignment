@@ -6,6 +6,7 @@ import InputSection from "../InputControl/inputSection";
 import { auth } from "../Firebase/FirebaseConfig";
 
 import styles from "./signup.module.css";
+import InputEmail from "../InputControl/inputEmail";
 
 function Signup() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ function Signup() {
             setValues((prev) => ({ ...prev, email: event.target.value }))
           }
         />
-        <InputSection
+        <InputEmail
           label="Password"
           placeholder="Enter password"
           onChange={(event) =>
